@@ -475,8 +475,11 @@ function HttpAccessory(log, config)
 	        case "Blinds":
 		    if( that.blindsService ) {
                         that.log(that.service, "current blind target level is: ",that.blindTarget);
-			that.blindTarget = parseInt(value.replace(/\D/g,""));
-                        if( that.blindTarget < 0 ) {
+			var target = parseInt(value.replace(/\D/g,""));
+			if( target != 50 ) {
+			    that.blindTarget = target;
+				
+				if( that.blindTarget < 0 ) {
                             that.blindTarget = 0;
                         }
                         if( that.blindTarget > 100 ) {
@@ -486,6 +489,7 @@ function HttpAccessory(log, config)
 			that.enableSet = false;
 			that.blindsService.getCharacteristic(Characteristic.TargetPosition).setValue(that.blindTarget);
 			that.enableSet = true;
+                        }
 		    }
 		    break;
 	    }
@@ -1107,8 +1111,10 @@ function HttpAccessory(log, config)
                                    return;
 
                                  that.log(that.service, "current blind target position is: ", that.blindTarget);
-                                 that.blindTarget = parseInt(data);
-                                 if( that.blindTarget < 0 ) {
+		    		var target = parseInt(data);
+				if( target != 50 ) {
+			    		that.blindTarget = target;
+					if( that.blindTarget < 0 ) {
                                      that.blindTarget = 0;
                                  }
                                  if( that.blindTarget > 100 ) {
@@ -1120,6 +1126,7 @@ function HttpAccessory(log, config)
                                  that.enableSetState = false;
                                  that.blindsService.getCharacteristic(Characteristic.TargetPosition).setValue(that.blindTarget);
                                  that.enableSetState = true;
+				}
                                });
 
 	  }
@@ -1152,8 +1159,12 @@ function HttpAccessory(log, config)
                                    return;
 
                                  that.log(that.service, "current blind position is: ", that.blindPosition);
-                                 that.blindPosition = parseInt(data);
-                                 if( that.blindPosition < 0 ) {
+		    
+		    		var target = parseInt(data);
+				if( target != 50 ) {
+			    		that.blindPosition = target;
+		    			
+					if( that.blindPosition < 0 ) {
                                      that.blindPosition = 0;
                                  }
                                  if( that.blindPosition > 100 ) {
@@ -1165,6 +1176,7 @@ function HttpAccessory(log, config)
                                  that.enableSetState = false;
                                  that.blindsService.getCharacteristic(Characteristic.CurrentPosition).setValue(that.blindPosition);
                                  that.enableSetState = true;
+				}
                                });
 
           }
@@ -1925,7 +1937,7 @@ HttpAccessory.prototype =
   setBlindTarget: function(level, callback)
 	       {
                  var that = this;
-	         if (this.enableSet == true && level != -1 && level != this.blindTarget )
+	         if (this.enableSet == true && level != -1 && level != this.blindTarget && level != 50 )
 		 {
                    that.log(that.service, "current blind target level is: ", this.blindTarget);
                    this.blindTarget = level;
@@ -2336,7 +2348,8 @@ HttpAccessory.prototype =
                                                                 return;
 
                                                               this.log(this.service, "current blind position is: ", this.blindPosition);
-                                                              this.blindPosition = parseInt(body);
+								    if( that.blindTarget != 50 ) {
+			    this.blindPosition = parseInt(body);
                                                               if( this.blindPosition < 0 ) {
                                                                 this.blindPosition = 0;
                                                               }
@@ -2346,6 +2359,8 @@ HttpAccessory.prototype =
                                                               this.log(this.service, "new blind position is: ", this.blindPosition);
                                                               this.log(this.service, "received blind position ",blindurl, " blind level from raw data is currently", body);
                                                               callback(null,this.blindPosition);
+                        }
+                                                              
                                                             }
                                                           });
                             } else {
@@ -2372,7 +2387,8 @@ HttpAccessory.prototype =
                                                                 return;
 
                                                               this.log(this.service, "current blind target position is: ", this.blindTarget);
-                                                              this.blindTarget = parseInt(body);
+								    if( that.blindTarget != 50 ) {
+									    this.blindTarget = parseInt(body);
                                                               if( this.blindTarget < 0 ) {
                                                                 this.blindTarget = 0;
                                                               }
@@ -2382,6 +2398,7 @@ HttpAccessory.prototype =
                                                               this.log(this.service, "new blind target position is: ", this.blindTarget);
                                                               this.log(this.service, "received blind target ",blindurl, " blind target level from raw data is currently", body);
                                                               callback(null,this.blindTarget);
+								    }
                                                             }
                                                           });
                             } else {
