@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-control4",
+  "name": "OSCARhomebridge-control4",
   "version": "1.1.28",
   "description": "A homebridge plugin to enable bidirectional access to Control4 devices.",
   "main": "index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/varietassoftware/homebridge-control4.git"
+    "url": "git+https://github.com/OscarGorog/homebridge-control4.git"
   },
   "keywords": [
     "control4",
@@ -20,12 +20,8 @@
     "automation",
     "homebridge-plugin"
   ],
-  "author": "Joshua Pressnell <josh@varietassoftware.com> (http://www.varietassoftware.com)",
+  "author": "Oscar",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/varietassoftware/homebridge-control4/issues"
-  },
-  "homepage": "https://github.com/varietassoftware/homebridge-control4#readme",
   "dependencies": {
     "polling-to-event": "^2.0.2",
     "request": "^2.78.0"
